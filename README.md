@@ -65,7 +65,7 @@ It can also be used to find `EMPTY     ` patches and delete them, just uncomment
 ## minidexed.sh
 
 MiniDexed requires you to have the sysex files in the `NNNNN_something.syx` format (where NNNNN is a number starting from 00001), so this script does that for you.  
-**AS YOU MIGHT HAVE GUESSED, THIS DOESN'T CHECK IF YOUR FILES ARE ALREDY IN THE CORRECT FORMAT, IT JUST ADDS THE NUMBER**  
+**AS YOU MIGHT HAVE GUESSED, THIS DOESN'T CHECK IF YOUR FILES ARE ALREADY IN THE CORRECT FORMAT, IT JUST ADDS THE NUMBER**  
 
 ## syscreator.sh
 
