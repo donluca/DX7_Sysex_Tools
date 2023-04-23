@@ -30,4 +30,51 @@ I hope I managed to discourage you enough from using those tools, thanks for rea
 
 # What each script does
 
-## 
+## aminet.sh
+
+This script reorganizes your banks so that each bank will be filled up with 32 voices.  
+The usage is `./aminet.sh NameOfTheCollection`. NameOfTheCollection is the name of the collection/pack you're re-organizing.
+It doesn't automatically add empty voices and rename the title and data files, so you'll have to run `./createEmpty.sh` after this.
+The script is named after the sysex collection "Aminet" which was got me into doing those scripts.
+
+## checkCorrupt.sh
+
+A complete trainwreck of a script which tries its hard to find broken voices and delete them.  
+The way it works, is that it checks the `.tnm` files for non-printable, non-ASCII characters, because broken voices often have binary data in their names and this script manages to catch them.
+It is terrible, unreliable and agonizingly slow.
+And I don't want to waste any more time on it.
+
+## countEmpty.sh
+
+A simple script which will tell you how many empty voices each bank has.
+You can create a log file with this information by doing `./countEmpty.sh > log.txt`
+
+## createEmpty.sh
+
+As the name suggests, this script checks each folder/bank (the `.DIR` folders) for missing voices and adds empty voices so that each bank has 32 voice as per spec.
+It also renames the files inside the banks and it's meant to be run after `aminet.sh`.  
+The empty voices are created with the `EMPTY     ` name which does not follow Yamaha's spec.  
+It was meant to work with MiniDexed because voices named `EMPTY     ` are skipped so you don't have to scroll through hundreds of them.  
+If you wish, you can change the name back to Yamaha's spec by uncommenting the line with `INIT VOICE` and commenting the other one.
+
+## deleteEmpty.sh
+
+After finding and deleting duplicates, you're going to end up with a bunch of orphaned `.tnm` files. This script tracks those down and deletes them.
+It can also be used to find `EMPTY     ` patches and delete them, just uncomment that block and comment the other one.
+
+## syscreator.sh
+
+Finds all `.DIR` directories which are created from `syseXtractor.sh` and converts them back to a sysex file (headerless!).
+
+## syseXtractor.sh
+
+Finds all sysex files and splits them into separate voices.
+It creates a directory with the same name as the `.syx` file and adds a `.DIR` extension to it.
+Inside it creates `.tnm` files which hold the voice name and `.ssx` which hold the voice data.
+They are numbered from `01` to `32`.
+**IT MUST BE USED ONLY ON HEADERLESS SYSEX FILES**
+
+## trunc.sh
+
+Finds all sysex files and removes the header from them.
+**BE CAREFUL THAT IT DOESN'T CHECK IF THE FILE HAS A HEADER IN THE FIRST PLACE, SO MAKE SURE THAT ALL YOUR SYSEX FILES HAVE A HEADER BEFORE RUNNING THIS**
